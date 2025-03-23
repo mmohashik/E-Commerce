@@ -9,7 +9,7 @@ const ShopContextProvider = () =>{
     const delivery_fee = 500;
 
     const value = {
-        procucts,currency,delivery_fee 
+        procucts,currency,delivery_fee
     }
 
     return (
