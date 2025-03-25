@@ -11,9 +11,35 @@ const OurPolicy = () => {
             Easy Exchange Policy
         </p>
 
-        
+        <p className='text-gray-400'>
+            We offer easy exchange policy for all our products
+        </p>
       </div>
       
+      <div>
+        <img className='w-12 m-auto mb-5' src={assets.quality_icon} alt="" />
+        <p className='font-semibold'>
+            7 Days Return Policy
+        </p>
+
+        <p className='text-gray-400'>
+           We provide 7 days return policy for all our products
+        </p>
+      </div>
+
+
+      <div>
+        <img className='w-12 m-auto mb-5' src={assets.support_img} alt="" />
+        <p className='font-semibold'>
+            Best custmer support
+        </p>
+
+        <p className='text-gray-400'>
+            We offer 24/7 customer support for all our customers
+        </p>
+      </div>
+
+
     </div>
   )
 }
