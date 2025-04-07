@@ -10,6 +10,7 @@ const Collection = () => {
   const [filterProducts, setFilterProducts] = useState([]);
   const [category, setCategory] = useState([]);
   const [subCategory, setSubCategory] = useState([]);
+  const [sortType, setSortType] = useState('relevant');
 
   // Handle category checkbox toggle
   const toggleCategory = (e) => {
@@ -21,7 +22,7 @@ const Collection = () => {
     }
   };
 
-  // Handle type checkbox toggle
+  // Handle subCategory checkbox toggle
   const toggleSubCategory = (e) => {
     const value = e.target.value;
     if (subCategory.includes(value)) {
@@ -35,16 +36,42 @@ const Collection = () => {
   useEffect(() => {
     let filtered = [...products];
 
+    // Filter by category
     if (category.length > 0) {
       filtered = filtered.filter(product => category.includes(product.category));
     }
 
+    // Filter by subCategory
     if (subCategory.length > 0) {
-      filtered = filtered.filter(product => subCategory.includes(product.type));
+      filtered = filtered.filter(product => subCategory.includes(product.subCategory));
     }
 
     setFilterProducts(filtered);
   }, [category, subCategory, products]);
+
+  // Load all products initially
+  useEffect(() => {
+    setFilterProducts(products);
+  }, [products]);
+
+  const sortProduct = () => {
+    let fpcopy = filterProducts.slice();
+
+    switch(sortType) {
+      case 'low-high':
+        setFilterProducts(fpcopy.sort((a, b) => a.price - b.price));
+        break;
+      case 'high-low':
+        setFilterProducts(fpcopy.sort((a, b) => b.price - a.price));
+        break;
+      default:
+        break;
+    }
+  }
+
+  useEffect(() => {
+    sortProduct();
+  }, [sortType]);
 
   return (
     <div className='flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t'>
@@ -78,7 +105,7 @@ const Collection = () => {
           </div>
         </div>
 
-        {/* Type Filter */}
+        {/* SubCategory Filter */}
         <div className={`border border-gray-300 pl-5 py-3 my-5 ${showFilter ? '' : 'hidden'} sm:block`}>
           <p className='mb-3 text-sm font-medium'>TYPE</p>
           <div className='flex flex-col gap-2 text-sm font-light text-gray-700'>
@@ -99,7 +126,7 @@ const Collection = () => {
       <div className='flex-1'>
         <div className='flex justify-between text-base sm:text-2xl mb-4'>
           <Title text1='ALL' text2='COLLECTIONS' />
-          <select className='border-2 border-gray-300 text-sm px-2'>
+          <select onChange={(e)=>setSortType(e.target.value)} className='border-2 border-gray-300 text-sm px-2'>
             <option value='relevant'>Sort by : Relevant</option>
             <option value='low-high'>Sort by : Low to High</option>
             <option value='high-low'>Sort by : High to Low</option>
