@@ -12,11 +12,11 @@ const Product = () => {
 
   const fetchProductData = async () => {
     products.map((item) => {
-      if(item.id === productId){
+      if(item._id === productId){
         setProductData(item);
         setImage(item.image[0]);
         return null;
-      }
+      } 
     })
   }
 
@@ -25,8 +25,22 @@ const Product = () => {
   },[productId,products])
 
   return productData ? (
-    <div>
-      
+    <div className='border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100'>
+      <div className='flex gap-12 sm:gap-12 flex-col sm:flex-row  '>
+
+      <div className='flex-1 flex flex-col-reverse gap-3 sm:flex-row'>
+        <div className='flex sm:flex-col overflow-x-auto overflow-auto sm:overflow-y-scroll justify-between sm:justify-normal sm:q- [18.7%] w-full'>
+          {productData.image.map((item,index) => (
+            
+              <img key={index} src={item} alt="" className='w-[24%] sm:w-full sm:mb-3 flex-shrink-0 cursor-pointer' />
+            
+          ))}
+           
+
+        </div>
+      </div>
+
+      </div>
     </div>
   ) : <div className='opacity-0'></div>
 } 
